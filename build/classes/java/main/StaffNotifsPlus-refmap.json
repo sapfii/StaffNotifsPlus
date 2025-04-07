@@ -1,0 +1,14 @@
+{
+  "mappings": {
+    "net/sapfii/staffnotifsplus/mixin/MKeyBindingAccessor": {
+      "boundKey": "field_1655:Lnet/minecraft/class_3675$class_306;"
+    }
+  },
+  "data": {
+    "named:intermediary": {
+      "net/sapfii/staffnotifsplus/mixin/MKeyBindingAccessor": {
+        "boundKey": "field_1655:Lnet/minecraft/class_3675$class_306;"
+      }
+    }
+  }
+}

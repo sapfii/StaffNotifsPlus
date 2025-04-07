@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "staffnotifsplus",
+  "version": "${version}",
+  "name": "StaffNotifsPlus",
+  "description": "Simple organization for different staff notification on DiamondFire",
+  "authors": [],
+  "contact": {},
+  "license": "All-Rights-Reserved",
+  "icon": "assets/staffnotifsplus/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "net.sapfii.staffnotifsplus.StaffNotifsPlus"
+    ]
+  },
+  "mixins": [
+    "staffnotifsplus.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}

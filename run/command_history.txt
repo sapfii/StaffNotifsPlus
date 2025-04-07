@@ -1,0 +1,50 @@
+/play
+/dev
+/item tag set varitem {"id":"txt","data":{"name":"! Incoming Report (EpicTheAwesomeXD)\nOffender: Offender\nOffense: toxicity\nLocation: Testing Plot"}}
+/play
+/server node1
+/c l
+/mb mfw
+/mb hey at least this is a good real-world test for my silly report feature
+/history furpawjob
+/whois furpawjob
+/server node1
+/history furpawjob
+/whois furpawjob
+/server beta
+/adminv on
+/adminv off
+/adminv on
+/tp Cactern
+/gamemode creative
+/tp cactern
+/tp Cactern
+/adminv on
+/s
+/server node1
+/play
+/build
+/play
+/server node1
+/tp Cactern
+/adminv off
+/shout the
+/gamemode creative
+/tokens add Cactern 1
+/tokens add Cactern -10000
+/tokens add Cactern 10000
+/adminv off
+/adminv on
+/adminv off
+/adminv on
+/adminv off
+/mod v
+/server node1
+/mod v
+/adminv off
+/adminv on
+/mod v
+/adminv on
+/adminv off
+/adminv on
+/adminv off
