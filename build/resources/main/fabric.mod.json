@@ -7,7 +7,7 @@
   "authors": [],
   "contact": {},
   "license": "All-Rights-Reserved",
-  "icon": "assets/staffnotifsplus/icon.png",
+  "icon": "assets/staffnotifsplus/staffnotifsplus.png",
   "environment": "client",
   "entrypoints": {
     "client": [

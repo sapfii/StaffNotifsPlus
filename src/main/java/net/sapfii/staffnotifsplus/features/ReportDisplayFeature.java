@@ -11,8 +11,12 @@ import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.GameMessageS2CPacket;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
 import net.sapfii.staffnotifsplus.GUIKeyBinding;
+import net.sapfii.staffnotifsplus.StaffNotifsPlus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -53,8 +57,9 @@ public class ReportDisplayFeature implements RenderedFeature, PacketListeningFea
 
     @Override
     public void render(DrawContext draw, RenderTickCounter renderTickCounter) {
-        if (keyBinding.isPressed() && !reports.isEmpty()) {
+        if (keyBinding.isPressed() && !reports.isEmpty() && !clearReports) {
             clearReports = true;
+            Flint.getUser().getPlayer().playSound(SoundEvent.of(Identifier.of("staffnotifsplus","report_dismiss")));
         }
         TextRenderer textRenderer = Flint.getClient().textRenderer;
         float delta = renderTickCounter.getTickDelta(true);
@@ -146,24 +151,29 @@ public class ReportDisplayFeature implements RenderedFeature, PacketListeningFea
         Matcher matcher = INC_RPT_REGEX.matcher(string);
         if (matcher.find()) {
             Text[] reportTexts = new Text[4];
+
             reportTexts[0] = Text.literal("! ").styled(style -> {
-                style = style.withColor(0xFB5454);
-                style = style.withBold(true);
-                return style;})
-                    .append(Text.literal("Incoming Report ").styled(style -> {
-                        style = style.withColor(0xa7a7a7);
-                        style = style.withBold(false);
-                        return style;}))
-                    .append(Text.literal("(" + matcher.group("reporter") + ")").styled(style -> {
-                        style = style.withColor(0x545454);
-                        style = style.withBold(false);
-                        return style;}));
+                    style = style.withColor(0xFB5454);
+                    style = style.withBold(true);
+                    return style;})
+                .append(Text.literal("Incoming Report ").styled(style -> {
+                    style = style.withColor(0xa7a7a7);
+                    style = style.withBold(false);
+                    return style;}))
+                .append(Text.literal("(" + matcher.group("reporter") + ")").styled(style -> {
+                    style = style.withColor(0x545454);
+                    style = style.withBold(false);
+                    return style;}));
+
             reportTexts[1] = Text.literal("Offender: ").withColor(0xFF545454)
                     .append(Text.literal(matcher.group("offender")).withColor(0xFFFFFFFF));
+
             reportTexts[2] = Text.literal("Offense: ").withColor(0xFF545454)
                     .append(Text.literal(matcher.group("offense")).withColor(0xFFFFFFFF));
+
             reportTexts[3] = Text.literal("Location: ").withColor(0xFF545454)
                     .append(Text.literal(matcher.group("location")).withColor(0xFFFFFFFF));
+
             reports.addFirst(reportTexts);
             reportData.put(reportTexts, new HashMap<>());
 

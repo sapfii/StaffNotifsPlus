@@ -1,0 +1,8 @@
+{
+  "report_dismiss": {
+    "subtitle": "sound.staffnotifsplus.report_dismiss",
+    "sounds": [
+      "staffnotifsplus:report_dismiss"
+    ]
+  }
+}

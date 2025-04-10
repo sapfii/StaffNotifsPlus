@@ -1,50 +1,50 @@
-/play
-/dev
-/item tag set varitem {"id":"txt","data":{"name":"! Incoming Report (EpicTheAwesomeXD)\nOffender: Offender\nOffense: toxicity\nLocation: Testing Plot"}}
-/play
-/server node1
-/c l
-/mb mfw
-/mb hey at least this is a good real-world test for my silly report feature
-/history furpawjob
-/whois furpawjob
-/server node1
-/history furpawjob
-/whois furpawjob
-/server beta
+/mod v
 /adminv on
 /adminv off
 /adminv on
-/tp Cactern
-/gamemode creative
-/tp cactern
-/tp Cactern
-/adminv on
+/adminv off
+/setrank Cactern moderation 2
+/setrank Cactern moderation 2 9qWA5Se3
+/ban zBinFinn but here's the zbinfinner
+/unban zbinfinn -s
+/ban RedVortx FILTER BYPASS RAAAH
+/unban redvortx
+/history CamTMH
+/tp RedVortx
+/tp MrSam7K ~ ~100 ~
+/sudo RedVortx i am smell like cheese
+/sudo MrSam7K i am also smell like cheese
+/sudo Jeremaster i am also smell like cheese
+/sudo zBinFinn i am also smell like cheese
+/r i will eventuyally
+/r im jusst
+/r really really tired rn
+/support queue HELP ME AAAAAAAAAAAAAAAAA
+/support request HELP MEEEEEEEEEEEEEEEEEEEEEE
+/support queue
+/support cancel
+/server node1
 /s
-/server node1
-/play
-/build
-/play
-/server node1
-/tp Cactern
 /adminv off
-/shout the
-/gamemode creative
-/tokens add Cactern 1
-/tokens add Cactern -10000
-/tokens add Cactern 10000
-/adminv off
+/c l
+/adminv on
+/adminv ont
 /adminv on
 /adminv off
 /adminv on
-/adminv off
-/mod v
-/server node1
-/mod v
 /adminv off
 /adminv on
 /mod v
+/adminv off
+/sparks
+/tokens add CamTMH -1090
+/tokens add CamTMH 1090
+/s
 /adminv on
 /adminv off
 /adminv on
 /adminv off
+/adminv on
+/server node12
+/server node1
+/adminv on

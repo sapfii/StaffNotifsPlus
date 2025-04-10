@@ -15,22 +15,17 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 
 public class VanishDisplayFeature implements RenderedFeature, PacketListeningFeature, UserCommandListeningFeature {
-    // » Vanish disabled. You will now be visible to other players.
-    // » Vanish enabled. You will not be visible to other players.
 
-    private float commandCooldown = 0;
+    private long commandCooldown = System.currentTimeMillis();
 
     private boolean inModVanish = false;
     private boolean inAdminVanish = false;
     private boolean expectingVanishCmd = false;
 
 
-    private int expectedOffsetX = 0;
-    private int expectedOffsetY = 0;
     private int offsetX = 0;
     private int offsetY = 0;
 
-    private int expectedBoxLength = 0;
     private int boxLength = 0;
 
     Text vanishText = Text.literal("");
@@ -41,15 +36,12 @@ public class VanishDisplayFeature implements RenderedFeature, PacketListeningFea
         if (result == a && result != b) {
             return a + 1;
         }
-        return (int) result;
+        return result;
     }
 
     @Override
     public void render(DrawContext draw, RenderTickCounter renderTickCounter) {
         float delta = renderTickCounter.getTickDelta(true);
-        if (commandCooldown > 0) {
-            commandCooldown -= delta;
-        }
         TextRenderer textRenderer = Flint.getClient().textRenderer;
 
         if (inModVanish && inAdminVanish) {
@@ -67,19 +59,17 @@ public class VanishDisplayFeature implements RenderedFeature, PacketListeningFea
         int y = 3;
 
 
-        if (inModVanish || inAdminVanish) {
-            expectedOffsetX = 0;
-            expectedOffsetY = 0;
-        } else {
-            expectedOffsetX = 0;
+        int expectedOffsetY = 0;
+        int expectedOffsetX = 0;
+        if (!(inModVanish || inAdminVanish)) {
             expectedOffsetY = -textRenderer.fontHeight - 12;
         }
 
-        offsetX = lerp(offsetX, expectedOffsetX, 0.1F * delta);
-        offsetY = lerp(offsetY, expectedOffsetY, 0.1F * delta);
+        offsetX = lerp(offsetX, expectedOffsetX, 0.15F * delta);
+        offsetY = lerp(offsetY, expectedOffsetY, 0.15F * delta);
 
         int x1 = 6+offsetX;
-        expectedBoxLength = 4 + x1 + textRenderer.getWidth(vanishText);
+        int expectedBoxLength = 4 + x1 + textRenderer.getWidth(vanishText);
 
         boxLength = lerp(boxLength, expectedBoxLength, 0.2F * delta);
 
@@ -94,7 +84,6 @@ public class VanishDisplayFeature implements RenderedFeature, PacketListeningFea
         );
 
     }
-
 
     @Override
     public EventResult onReceivePacket(Packet<?> packet) {
@@ -133,13 +122,13 @@ public class VanishDisplayFeature implements RenderedFeature, PacketListeningFea
     @Override
     public ReplacementEventResult<String> sendCommand(String s) {
         Text message;
+        if (System.currentTimeMillis() - commandCooldown < 100) {
+            return ReplacementEventResult.pass();
+        }
         switch (s) {
             case "s",
                  "spawn":
-                if (commandCooldown > 0) {
-                    break;
-                }
-                commandCooldown = 0.1F;
+                commandCooldown = System.currentTimeMillis();
                 if (inModVanish) {
                     inModVanish = false;
                     message = Text.literal("[MOD] ").withColor(0xFF00a700).append(Text.literal("Mod Vanish disabled.").withColor(0xFFFFFFFF));
@@ -148,10 +137,7 @@ public class VanishDisplayFeature implements RenderedFeature, PacketListeningFea
                 break;
             case "mod vanish",
                  "mod v":
-                if (commandCooldown > 0) {
-                    break;
-                }
-                commandCooldown = 0.1F;
+                commandCooldown = System.currentTimeMillis();
                 if (!inModVanish) {
                     expectingVanishCmd = true;
                 }
@@ -164,10 +150,7 @@ public class VanishDisplayFeature implements RenderedFeature, PacketListeningFea
                 Flint.getUser().getPlayer().sendMessage(message, false);
                 break;
             case "adminv on":
-                if (commandCooldown > 0) {
-                    break;
-                }
-                commandCooldown = 0.1F;
+                commandCooldown = System.currentTimeMillis();
                 expectingVanishCmd = true;
                 if (!inAdminVanish) {
                     message = Text.literal("[ADMIN] ").withColor(0xFFfb2900).append(Text.literal("Admin Vanish enabled.").withColor(0xFFFFFFFF));
@@ -180,10 +163,7 @@ public class VanishDisplayFeature implements RenderedFeature, PacketListeningFea
                 inAdminVanish = true;
                 break;
             case "adminv off":
-                if (commandCooldown > 0) {
-                    break;
-                }
-                commandCooldown = 0.1F;
+                commandCooldown = System.currentTimeMillis();
                 if (inAdminVanish) {
                     message = Text.literal("[ADMIN] ").withColor(0xFFfb2900).append(Text.literal("Admin Vanish disabled.").withColor(0xFFFFFFFF));
                 } else {
