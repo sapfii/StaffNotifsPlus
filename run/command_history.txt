@@ -1,50 +1,50 @@
-/mod v
-/adminv on
-/adminv off
-/adminv on
-/adminv off
-/setrank Cactern moderation 2
-/setrank Cactern moderation 2 9qWA5Se3
-/ban zBinFinn but here's the zbinfinner
-/unban zbinfinn -s
-/ban RedVortx FILTER BYPASS RAAAH
-/unban redvortx
-/history CamTMH
-/tp RedVortx
-/tp MrSam7K ~ ~100 ~
-/sudo RedVortx i am smell like cheese
-/sudo MrSam7K i am also smell like cheese
-/sudo Jeremaster i am also smell like cheese
-/sudo zBinFinn i am also smell like cheese
-/r i will eventuyally
-/r im jusst
-/r really really tired rn
-/support queue HELP ME AAAAAAAAAAAAAAAAA
-/support request HELP MEEEEEEEEEEEEEEEEEEEEEE
-/support queue
-/support cancel
+/play
 /server node1
-/s
-/adminv off
-/c l
-/adminv on
-/adminv ont
-/adminv on
-/adminv off
-/adminv on
-/adminv off
-/adminv on
-/mod v
-/adminv off
-/sparks
-/tokens add CamTMH -1090
-/tokens add CamTMH 1090
-/s
-/adminv on
-/adminv off
-/adminv on
-/adminv off
-/adminv on
-/server node12
-/server node1
-/adminv on
+/dev
+/i tag list
+/play
+/dev
+/i tag list
+/item tag set varitem {"id":"txt","data":{"name":"! Incoming Report (EpicTheAwesomeXD)\nOffender: Offender\nOffense: toxicity a lot of toxicity he called me\nLocation: Testing Plot"}}
+/play
+/dev
+/item tag set varitem {"id":"txt","data":{"name":"! Incoming Report (EpicTheAwesomeXD)\nOffender: Offender\nOffense: toxicity a lot of toxicity he called\nLocation: Testing Plot"}}
+/play
+/dev
+/item tag set varitem {"id":"txt","data":{"name":"! Incoming Report (EpicTheAwesomeXD)\nOffender: Offender\nOffense: toxicity a lot of toxicity he called me a dumb idiot head and i am so upset about it! grrr im so angry rahhhh\nLocation: Testing Plot"}}
+/play
+/dev
+/item tag set varitem {"id":"txt","data":{"name":"! Incoming Report (EpicTheAwesomeXD)\nOffender: Offender\nOffense: toxicity a lot of toxicity he called me a dumb idiot head and i am aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\nLocation: Testing Plot"}}
+/play
+/dev
+/item tag set varitem {"id":"txt","data":{"name":"! Incoming Report (EpicTheAwesomeXD)\nOffender: Offender\nOffense: toxicity a lot of toxicity he called me a dumb idiot head\nLocation: Testing Plot"}}
+/item tag set varitem {"id":"txt","data":{"name":"! Incoming Report (EpicTheAwesomeXD)\nOffender: Offender\nOffense: toxicity a lot of toxicity he called me a dumb idiot head and he is duuuummb! whooee wow DUMB!!!!!!!!!!!!!!!!!!!\nLocation: Testing Plot"}}
+/item tag set varitem {"id":"txt","data":{"name":"! Incoming Report (EpicTheAwesomeXD)\nOffender: Offender\nOffense: TOXICITYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY\nLocation: Testing Plot"}}
+/play
+/dev
+/play
+/dev
+/item tag set varitem {"id":"txt","data":{"name":"! Incoming Report (EpicTheAwesomeXD)\nOffender: Offender\nOffense: TOXICITYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY I AM MAD\nLocation: Testing Plot"}}
+/play
+/dev
+/item tag set varitem {"id":"txt","data":{"name":"! Incoming Report (EpicTheAwesomeXD)\nOffender: Offender\nOffense: toxicity a lot of toxicity he called me a dumb idiot head and he is duuuummb! whooee wow DUMB!!!!!!!!!!!!!!!!!!!\nLocation: Testing Plot"}}
+/play
+/dev
+/play
+/dev
+/item tag set varitem {"id":"txt","data":{"name":"! Incoming Report (EpicTheAwesomeXD)\nOffender: Offender\nOffense: toxicity a lot of toxicity he called me a dumb idiot head RAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH\nLocation: Testing Plot"}}
+/plaay
+/play
+/dev
+/play
+/dev
+/item tag set varitem {"id":"txt","data":{"name":"! Incoming Report (EpicTheAwesomeXD)\nOffender: Offender\nOffense: toxicity a lot of toxicity he called me a dumb idiot head RAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH that was a test\nLocation: Testing Plot"}}
+/play
+/dev
+/play
+/dev
+/play
+/dev
+/item tag set varitem {"id":"txt","data":{"name":"! Incoming Report (EpicTheAwesomeXD)\nOffender: Offender\nOffense: toxicity a lot of toxicity he called me a dumb idiot head i am very upset at this fact please ban them right now\nLocation: Testing Plot"}}
+/play
+/dev
