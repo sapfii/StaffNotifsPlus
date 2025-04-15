@@ -8,16 +8,17 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.sapfii.staffnotifsplus.features.ReportDisplayFeature;
 import net.sapfii.staffnotifsplus.features.ServerMuteFeature;
+import net.sapfii.staffnotifsplus.features.LogFeature;
 import net.sapfii.staffnotifsplus.features.VanishDisplayFeature;
 
 public class StaffNotifsPlus implements ClientModInitializer {
-
     @Override
     public void onInitializeClient() {
         FlintAPI.registerFeatures(
                 new VanishDisplayFeature(),
                 new ReportDisplayFeature(),
-                new ServerMuteFeature()
+                new ServerMuteFeature(),
+                new LogFeature()
         );
 
         // report dismiss sound
