@@ -5,9 +5,9 @@ import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
 import net.minecraft.client.gui.widget.EntryListWidget;
 import net.minecraft.text.Text;
 
-public class LogScroll extends EntryListWidget<ReportScroll.Entry> {
+public class HistoryScroll extends EntryListWidget<ReportScroll.Entry> {
 
-    public LogScroll(MinecraftClient client, int width, int height, int y, int itemHeight) {
+    public HistoryScroll(MinecraftClient client, int width, int height, int y, int itemHeight) {
         super(client, width, height, y, itemHeight);
     }
 
@@ -17,7 +17,7 @@ public class LogScroll extends EntryListWidget<ReportScroll.Entry> {
 
     @Override
     public int getRowWidth() {
-        return 440;
+        return 240;
     }
 
     @Override

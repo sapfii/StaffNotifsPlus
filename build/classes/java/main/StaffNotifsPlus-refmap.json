@@ -2,12 +2,24 @@
   "mappings": {
     "net/sapfii/staffnotifsplus/mixin/MKeyBindingAccessor": {
       "boundKey": "field_1655:Lnet/minecraft/class_3675$class_306;"
+    },
+    "net/sapfii/staffnotifsplus/mixin/MPlayerListHud": {
+      "getPlayerName": "Lnet/minecraft/class_355;method_1918(Lnet/minecraft/class_640;)Lnet/minecraft/class_2561;"
+    },
+    "net/sapfii/staffnotifsplus/mixin/MToastManager": {
+      "add": "Lnet/minecraft/class_374;method_1999(Lnet/minecraft/class_368;)V"
     }
   },
   "data": {
     "named:intermediary": {
       "net/sapfii/staffnotifsplus/mixin/MKeyBindingAccessor": {
         "boundKey": "field_1655:Lnet/minecraft/class_3675$class_306;"
+      },
+      "net/sapfii/staffnotifsplus/mixin/MPlayerListHud": {
+        "getPlayerName": "Lnet/minecraft/class_355;method_1918(Lnet/minecraft/class_640;)Lnet/minecraft/class_2561;"
+      },
+      "net/sapfii/staffnotifsplus/mixin/MToastManager": {
+        "add": "Lnet/minecraft/class_374;method_1999(Lnet/minecraft/class_368;)V"
       }
     }
   }

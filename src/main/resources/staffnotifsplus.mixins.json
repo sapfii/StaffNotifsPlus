@@ -6,7 +6,9 @@
   "mixins": [
   ],
   "client": [
-    "MKeyBindingAccessor"
+    "MKeyBindingAccessor",
+    "MPlayerListHud",
+    "MToastManager"
   ],
   "injectors": {
     "defaultRequire": 1

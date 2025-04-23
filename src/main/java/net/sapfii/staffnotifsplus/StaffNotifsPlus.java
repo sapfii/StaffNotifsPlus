@@ -6,10 +6,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
-import net.sapfii.staffnotifsplus.features.ReportDisplayFeature;
-import net.sapfii.staffnotifsplus.features.ServerMuteFeature;
-import net.sapfii.staffnotifsplus.features.LogFeature;
-import net.sapfii.staffnotifsplus.features.VanishDisplayFeature;
+import net.sapfii.staffnotifsplus.features.*;
 
 public class StaffNotifsPlus implements ClientModInitializer {
     @Override
@@ -18,11 +15,22 @@ public class StaffNotifsPlus implements ClientModInitializer {
                 new VanishDisplayFeature(),
                 new ReportDisplayFeature(),
                 new ServerMuteFeature(),
-                new LogFeature()
+                new LogFeature(),
+                new ClickableSessionFeature(),
+                new HistoryFeature()
         );
 
-        // report dismiss sound
-        Registry.register(Registries.SOUND_EVENT, Identifier.of("staffnotifsplus", "report_dismiss"),
-                SoundEvent.of(Identifier.of("staffnotifsplus", "report_dismiss")));
+        StaffNotifsSound reportDismiss = new StaffNotifsSound("staffnotifsplus", "report_dismiss");
+
+        registerSounds(
+                reportDismiss
+        );
+    }
+
+    public void registerSounds(StaffNotifsSound... sounds) {
+        for (StaffNotifsSound sound : sounds) {
+            Registry.register(Registries.SOUND_EVENT, Identifier.of(sound.namespace, sound.path),
+                    SoundEvent.of(Identifier.of(sound.namespace, sound.path)));
+        }
     }
 }

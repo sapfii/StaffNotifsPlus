@@ -1,50 +1,50 @@
-/mod log
-/s
-/mod log
-/locate celestialapples
-/build
-/history jellyphsh
-/mod log
-/history
-/s
-/dev
-/play
-/fly
-/dev
-/play
-/dev
-/play
-/mod log
-/admin log
-/server beta
-/adminv on
-/mod log
-/server node1
-/mod log
-/server node2
-/mod log
-/server node1
-/mod log
-/mod log 10h
+/history CamTMH
+/mute CamTMH
+/history CamTMH
+/history xmap
+/history CamTMH
+/unmute CamTMH
+/history CamTMH
+/unmute CamTMH
+/history CamTMH
+/mute CamTMH
+/history CamTMH
+/unmute CamTMH
+/history CamTMH
+/tempmute CamTMH
+/tempmute CamTMH 3d
+/tempmute CamTMH
+/history CamTMH
+/unmute CamTMH
+/history xmap
+/history CamTMH
+/history CamTMH 100
+/history xmap
+/history x
+/history m
+/history x
+/whois x
 /server node3
-/mod log 10h
-/server private1`
-/server private1
-/server private2
-/server private3
-/server private4
-/server private5
-/tp zpan0317
-/adminv off
-/adminv on
-/adminv off
-/join 20674
-/sb afaik no
-/sb pretty sure it's difficult even for df itself
-/sb just logging it is a lot easier
-/mod log
+/server node5
+/tp TeamF
+//wand
+//pos1
+/r 30d cd
+//pos2
+//set air
 /fly
+//pos1
+//pos2
+//set air
+//pos1
+/fly
+//pos2
+//set air
+//pos2
+//set air
+/gmc
 /s
-/head DiamondFire
-/s
-/adminv on
+/server bet
+/server beta
+/mod log
+/history CamTMH

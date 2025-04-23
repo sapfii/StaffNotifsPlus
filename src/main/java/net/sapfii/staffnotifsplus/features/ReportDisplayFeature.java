@@ -46,7 +46,7 @@ public class ReportDisplayFeature implements RenderedFeature, PacketListeningFea
         return result;
     }
 
-    boolean clearReports = false;
+    boolean clearReport = false;
 
     ArrayList<ReportData> visibleReports = new ArrayList<>();
     private static final Pattern INC_RPT_REGEX = Pattern.compile(
@@ -56,6 +56,8 @@ public class ReportDisplayFeature implements RenderedFeature, PacketListeningFea
     ReportScreen reportScreen = new ReportScreen(Text.empty());
     ArrayList<ReportData> allReports = new ArrayList<>();
 
+    long clearReportTime;
+
     @Override
     public void render(DrawContext draw, RenderTickCounter renderTickCounter) {
         float delta = renderTickCounter.getTickDelta(true);
@@ -63,6 +65,11 @@ public class ReportDisplayFeature implements RenderedFeature, PacketListeningFea
         boolean ctrlPressed = InputUtil.isKeyPressed(Flint.getClient().getWindow().getHandle(), InputUtil.GLFW_KEY_LEFT_CONTROL);
         if (keyBinding.isPressed()) {
             if (ctrlPressed && !(Flint.getClient().currentScreen instanceof LogScreen)) {
+                if (!visibleReports.isEmpty()) {
+                    visibleReports.clear();
+                    Flint.getUser().getPlayer().playSound(SoundEvent.of(Identifier.of("staffnotifsplus","report_dismiss")));
+                }
+
                 reportScreen = new ReportScreen(Text.empty());
                 MinecraftClient.getInstance().setScreen(reportScreen);
 
@@ -75,9 +82,12 @@ public class ReportDisplayFeature implements RenderedFeature, PacketListeningFea
                     }
                     reportScreen.addReport(Text.literal(""));
                 }
-            } else if (!visibleReports.isEmpty() && !clearReports && !(Flint.getClient().currentScreen instanceof ReportScreen)) {
-                clearReports = true;
-                Flint.getUser().getPlayer().playSound(SoundEvent.of(Identifier.of("staffnotifsplus","report_dismiss")));
+            } else if (!visibleReports.isEmpty() && !clearReport && !(Flint.getClient().currentScreen instanceof ReportScreen)) {
+                if (clearReportTime == 0 || (System.currentTimeMillis()-clearReportTime >= 500)) {
+                    clearReportTime = System.currentTimeMillis();
+                    clearReport = true;
+                    Flint.getUser().getPlayer().playSound(SoundEvent.of(Identifier.of("staffnotifsplus","report_dismiss")));
+                }
             }
         }
 
@@ -114,20 +124,18 @@ public class ReportDisplayFeature implements RenderedFeature, PacketListeningFea
                 report.bgOpacity = bgAlpha;
                 report.opacity = alpha;
             }
-
-            if (clearReports && i < 2) {
+            if (i == 0 && clearReport) {
                 int bgAlpha = lerp(bgOpacity, 0, 0.2F * delta);
                 int alpha = lerp(opacity, 0, 0.15F * delta);
                 bgColor = (bgAlpha << 24);
                 color = (alpha << 24) | color & 0x00FFFFFF;
                 if (alpha <= 10) {
-                    visibleReports.clear();
-                    clearReports = false;
-                    return;
-                } else {
-                    report.opacity = alpha;
-                    report.bgOpacity = bgAlpha;
+                    clearReport = false;
+                    render = false;
+                    visibleReports.removeFirst();
                 }
+                report.bgOpacity = bgAlpha;
+                report.opacity = alpha;
             }
             if (render) {
                 draw.fill(report.x, report.y-5, (10 + maxLength)+report.x, report.y+5+(textRenderer.fontHeight*report.texts.size()), bgColor);
@@ -153,7 +161,6 @@ public class ReportDisplayFeature implements RenderedFeature, PacketListeningFea
         TextRenderer textRenderer = Flint.getClient().textRenderer;
 
         String string = msgText.getString();
-
         Matcher matcher = INC_RPT_REGEX.matcher(string);
         if (matcher.find()) {
             ArrayList<Text> reportTexts = new ArrayList<>();
@@ -186,6 +193,7 @@ public class ReportDisplayFeature implements RenderedFeature, PacketListeningFea
                     offense,
                     175);
             reportTexts.addAll(2, wrappedOffenseLines);
+
 
             reportTexts.add(Text.literal("Location: ").withColor(0xFF545454)
                     .append(Text.literal(matcher.group("location")).withColor(0xFFFFFFFF)));

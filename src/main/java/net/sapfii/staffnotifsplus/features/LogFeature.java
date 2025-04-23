@@ -5,6 +5,7 @@ import dev.dfonline.flint.feature.trait.RenderedFeature;
 import dev.dfonline.flint.feature.trait.UserCommandListeningFeature;
 import dev.dfonline.flint.util.result.EventResult;
 import dev.dfonline.flint.util.result.ReplacementEventResult;
+import jdk.jfr.Event;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
@@ -13,6 +14,8 @@ import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.GameMessageS2CPacket;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
+import net.minecraft.text.TextColor;
+import net.minecraft.util.Formatting;
 import net.sapfii.staffnotifsplus.features.screens.LogScreen;
 
 import java.util.ArrayList;
@@ -23,6 +26,7 @@ import java.util.regex.Pattern;
 public class LogFeature implements PacketListeningFeature, RenderedFeature, UserCommandListeningFeature {
     private static final Pattern LOG_INITIATOR = Pattern.compile("--------------\\[ (?<logType>.+) \\| (?<node>.+) ]--------------");
     private static final Pattern CMD_INITIATOR = Pattern.compile("(?<logType>.+) log (?<params>.+)");
+    private static final Pattern PLOT_FILTER = Pattern.compile("(?<time>.+) \\[(?<action>.+)]\\[(?<plot>.+)] (?<player>.+): (?<msg>.+)");
     LogScreen logScreen = new LogScreen(
             Text.empty(), "Log"
     );
@@ -34,7 +38,7 @@ public class LogFeature implements PacketListeningFeature, RenderedFeature, User
     boolean openScreen = false;
     String logType = "Log";
 
-    static ArrayList<Text> wrap(Text text, int maxLength) {
+    public static ArrayList<Text> wrap(Text text, int maxLength) {
         TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
         String string = text.getString();
 
@@ -42,7 +46,6 @@ public class LogFeature implements PacketListeningFeature, RenderedFeature, User
         List<Style> styleList = new ArrayList<>();
 
         for (Text sibling : siblings) {
-            System.out.println(sibling);
             String s = sibling.getString();
             for (int i = 0; i < s.length(); ++i) {
                 styleList.add(sibling.getStyle());
@@ -120,12 +123,37 @@ public class LogFeature implements PacketListeningFeature, RenderedFeature, User
                 expectingLogMsgs = !expectingLogMsgs;
                 if (!expectingLogMsgs) {
                     openScreen = true;
-                    logType = matcher.group("logType");
+                    logType = matcher.group("logType") + " | " + matcher.group("node");
                 }
                 return EventResult.CANCEL;
             }
         }
         if (expectingLogMsgs) {
+            if ((string.startsWith("[ADMIN]") || string.startsWith("[MOD]")) && !logMsgs.isEmpty()) {
+                List<Text> siblings = msgText.getSiblings();
+                msgText = Text.empty();
+                for (Text sibling : siblings) {
+                    TextColor color = TextColor.fromFormatting(Formatting.AQUA);
+                    if (sibling.getStyle().getColor() == color) {
+                        sibling = Text.literal(Integer.valueOf(Math.clamp(logMsgs.size()-1, 0, 150)).toString()).setStyle(sibling.getStyle());
+                    }
+                    msgText = msgText.copy().append(sibling);
+                }
+                logMsgs.add(msgText);
+                return EventResult.CANCEL;
+            }
+            if (MinecraftClient.getInstance().currentScreen instanceof LogScreen) {
+                Matcher findPlot = PLOT_FILTER.matcher(string);
+                String plotFilter = ((LogScreen) MinecraftClient.getInstance().currentScreen).plotFilter.getText();
+                if (!plotFilter.isEmpty()) {
+                    if ((findPlot.find() && plotFilter.matches(findPlot.group("plot").substring(1)) || string.startsWith("[MOD]") || string.startsWith("[ADMIN]"))) {
+                        logMsgs.add(msgText);
+                    }
+                    return EventResult.CANCEL;
+                }
+                logMsgs.add(msgText);
+                return EventResult.CANCEL;
+            }
             logMsgs.add(msgText);
             return EventResult.CANCEL;
         }
@@ -137,6 +165,18 @@ public class LogFeature implements PacketListeningFeature, RenderedFeature, User
         if (openScreen) {
             openScreen = false;
             logScreen = new LogScreen(Text.empty(), logType);
+            if (MinecraftClient.getInstance().currentScreen instanceof LogScreen) {
+                logScreen = new LogScreen(
+                        Text.empty(),
+                        logType,
+                        ((LogScreen) MinecraftClient.getInstance().currentScreen).filter.getText(),
+                        ((LogScreen) MinecraftClient.getInstance().currentScreen).plotFilter.getText(),
+                        ((LogScreen) MinecraftClient.getInstance().currentScreen).duration.getText(),
+                        ((LogScreen) MinecraftClient.getInstance().currentScreen).durationUnits.getValue(),
+                        ((LogScreen) MinecraftClient.getInstance().currentScreen).secondDuration.getText(),
+                        ((LogScreen) MinecraftClient.getInstance().currentScreen).secondDurationUnits.getValue());
+            }
+
             MinecraftClient.getInstance().setScreen(logScreen);
             for (Text msg : logMsgs.reversed()) {
                 for (Text wrappedMsg : wrap(msg, 400)) {
@@ -147,11 +187,10 @@ public class LogFeature implements PacketListeningFeature, RenderedFeature, User
         }
     }
 
-
     @Override
     public ReplacementEventResult<String> sendCommand(String s) {
         Matcher matcher = CMD_INITIATOR.matcher(s);
-        if (matcher.find() || (s.equals("mod log") || s.equals("admin log"))) {
+        if (matcher.find() || (s.equals("mod log") || s.equals("admin log") || s.equals("mod log ") || s.equals("admin log "))) {
             didLogCmd = true;
         }
         return ReplacementEventResult.pass();
